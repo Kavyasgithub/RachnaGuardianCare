@@ -162,7 +162,7 @@ contactForm.addEventListener('submit', async (e) => {
     
     try {
         // Send data to backend API
-        const response = await fetch('http://localhost:5000/api/contact', {
+        const response = await fetch('https://rgcforyou.onrender.com/api/contact', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -387,7 +387,7 @@ console.log('Rachna Guardian Care - Website Loaded Successfully ✓');
 
 // ==================== AUTHENTICATION LOGIC ====================
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://rgcforyou.onrender.com/api';
 
 // Get DOM elements
 const signinModal = document.getElementById('signin-modal');
