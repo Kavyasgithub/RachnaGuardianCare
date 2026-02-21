@@ -1085,6 +1085,26 @@ body {
     background: #c82333;
 }
 
+.btn-admin-panel {
+    padding: 6px 15px;
+    background: var(--primary-green);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.btn-admin-panel:hover {
+    background: var(--dark-green);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(45, 134, 89, 0.3);
+}
+
 /* Modal Styles */
 .modal {
     display: none;
@@ -1267,7 +1287,8 @@ body {
         gap: 10px;
     }
 
-    .btn-logout {
+    .btn-logout,
+    .btn-admin-panel {
         width: 100%;
     }
 }

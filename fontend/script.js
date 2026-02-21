@@ -432,9 +432,12 @@ function checkAuth() {
         const userData = JSON.parse(user);
         showUserInfo(userData);
         
-        // If admin, redirect to admin panel if on home page
+        // If admin, show admin panel button
         if (userData.role === 'admin') {
-            // Don't auto-redirect, just show user is logged in
+            const btnAdminPanel = document.getElementById('btn-admin-panel');
+            if (btnAdminPanel) {
+                btnAdminPanel.style.display = 'inline-block';
+            }
             console.log('Admin logged in:', userData.email);
         }
     }
@@ -446,6 +449,12 @@ function showUserInfo(user) {
     authDropdownMenu.classList.remove('show');
     userInfo.style.display = 'flex';
     userEmail.textContent = user.email;
+    
+    // Show admin panel button if user is admin
+    const btnAdminPanel = document.getElementById('btn-admin-panel');
+    if (user.role === 'admin' && btnAdminPanel) {
+        btnAdminPanel.style.display = 'inline-block';
+    }
 }
 
 // Hide user info in navbar
@@ -453,6 +462,12 @@ function hideUserInfo() {
     authToggle.style.display = 'flex';
     userInfo.style.display = 'none';
     userEmail.textContent = '';
+    
+    // Hide admin panel button
+    const btnAdminPanel = document.getElementById('btn-admin-panel');
+    if (btnAdminPanel) {
+        btnAdminPanel.style.display = 'none';
+    }
 }
 
 // Show modal
