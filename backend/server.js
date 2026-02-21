@@ -10,7 +10,13 @@ require('dotenv').config();
 const app = express();
 
 // Middleware
-app.use(cors());
+// CORS Configuration - Allow frontend domains
+const corsOptions = {
+    origin: '*', // Allow all origins (change to specific domains in production)
+    credentials: true,
+    optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -185,6 +191,29 @@ async function sendEmailNotification(contactData) {
 }
 
 // API Routes
+
+// Root route
+app.get('/', (req, res) => {
+    res.json({
+        success: true,
+        message: 'Rachna Guardian Care API Server',
+        version: '1.0.0',
+        status: 'running',
+        endpoints: {
+            health: '/api/health',
+            contact: '/api/contact',
+            auth: {
+                signup: '/api/auth/signup',
+                login: '/api/auth/login'
+            },
+            admin: {
+                contacts: '/api/admin/contacts',
+                users: '/api/admin/users'
+            }
+        }
+    });
+});
+
 // Health check
 app.get('/api/health', (req, res) => {
     res.json({ 
