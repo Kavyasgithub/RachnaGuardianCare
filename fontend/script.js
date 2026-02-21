@@ -195,7 +195,7 @@ contactForm.addEventListener('submit', async (e) => {
                     <h3 style="margin-bottom: 10px;">✓ Thank You, ${name}!</h3>
                     <p style="margin: 0;">We've received your message and will get back to you within 24 hours.</p>
                     <p style="margin: 10px 0 0 0; font-size: 14px;">Our team will contact you at ${phone}</p>
-                    <p style="margin: 10px 0 0 0; font-size: 12px; opacity: 0.9;">✉️ Email notification sent successfully</p>
+                    <p style="margin: 10px 0 0 0; font-size: 12px; opacity: 0.9;">✅ Your message has been saved successfully</p>
                 </div>
             `;
             

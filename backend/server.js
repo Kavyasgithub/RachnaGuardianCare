@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const nodemailer = require('nodemailer');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
@@ -115,80 +114,6 @@ async function initializeAdmin() {
 mongoose.connection.once('open', () => {
     initializeAdmin();
 });
-
-// Email Transporter Configuration
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD
-    }
-});
-
-// Verify email configuration on startup
-transporter.verify((error, success) => {
-    if (error) {
-        console.error('❌ Email configuration error:', error);
-    } else {
-        console.log('✅ Email server is ready to send messages');
-    }
-});
-
-// Helper function to send email
-async function sendEmailNotification(contactData) {
-    const mailOptions = {
-        from: process.env.EMAIL_USER,
-        to: process.env.NOTIFICATION_EMAIL,
-        subject: `New Contact Form Submission - ${contactData.service}`,
-        html: `
-            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 2px solid #2d8659; border-radius: 10px;">
-                <h2 style="color: #2d8659; text-align: center;">New Contact Form Submission</h2>
-                <p style="font-size: 14px; color: #666; text-align: center;">Rachna Guardian Care - ${new Date().toLocaleString()}</p>
-                <hr style="border: 1px solid #e0e0e0; margin: 20px 0;">
-                
-                <table style="width: 100%; border-collapse: collapse;">
-                    <tr style="background-color: #f5f5f5;">
-                        <td style="padding: 12px; font-weight: bold; width: 30%; border: 1px solid #ddd;">Name:</td>
-                        <td style="padding: 12px; border: 1px solid #ddd;">${contactData.name}</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Email:</td>
-                        <td style="padding: 12px; border: 1px solid #ddd;">
-                            <a href="mailto:${contactData.email}" style="color: #2d8659; text-decoration: none;">${contactData.email}</a>
-                        </td>
-                    </tr>
-                    <tr style="background-color: #f5f5f5;">
-                        <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Phone:</td>
-                        <td style="padding: 12px; border: 1px solid #ddd;">
-                            <a href="tel:${contactData.phone}" style="color: #2d8659; text-decoration: none;">${contactData.phone}</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Service:</td>
-                        <td style="padding: 12px; border: 1px solid #ddd;">${contactData.service}</td>
-                    </tr>
-                    <tr style="background-color: #f5f5f5;">
-                        <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd; vertical-align: top;">Message:</td>
-                        <td style="padding: 12px; border: 1px solid #ddd;">${contactData.message}</td>
-                    </tr>
-                </table>
-                
-                <div style="margin-top: 20px; padding: 15px; background-color: #e8f5e9; border-radius: 5px; text-align: center;">
-                    <p style="margin: 0; color: #2d8659; font-weight: bold;">🔔 Please respond within 24 hours</p>
-                </div>
-            </div>
-        `
-    };
-
-    try {
-        await transporter.sendMail(mailOptions);
-        console.log('✅ Email notification sent successfully');
-        return true;
-    } catch (error) {
-        console.error('❌ Error sending email:', error);
-        return false;
-    }
-}
 
 // API Routes
 
@@ -415,21 +340,13 @@ app.post('/api/contact', async (req, res) => {
         await contact.save();
         console.log('✅ Contact saved to database:', contact._id);
 
-        // Send email notification
-        const emailSent = await sendEmailNotification({
-            name,
-            email,
-            phone,
-            service,
-            message
-        });
-
         res.status(201).json({
             success: true,
-            message: 'Contact form submitted successfully',
+            message: 'Thank you for contacting us! We have received your message and will get back to you soon.',
             data: {
                 id: contact._id,
-                emailSent
+                name: name,
+                submittedAt: contact.submittedAt
             }
         });
 
