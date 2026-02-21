@@ -26,6 +26,40 @@
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#services" class="nav-link">Services</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li class="auth-dropdown">
+                    <div class="auth-toggle" id="auth-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                    <div class="auth-dropdown-menu" id="auth-dropdown-menu">
+                        <button class="auth-dropdown-item" id="btn-signin">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                                <polyline points="10 17 15 12 10 7"></polyline>
+                                <line x1="15" y1="12" x2="3" y2="12"></line>
+                            </svg>
+                            Sign In
+                        </button>
+                        <button class="auth-dropdown-item" id="btn-signup">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="8.5" cy="7" r="4"></circle>
+                                <line x1="20" y1="8" x2="20" y2="14"></line>
+                                <line x1="23" y1="11" x2="17" y2="11"></line>
+                            </svg>
+                            Sign Up
+                        </button>
+                    </div>
+                    <span class="user-info" id="user-info" style="display: none;">
+                        <span id="user-email"></span>
+                        <button class="btn-logout" id="btn-logout">Logout</button>
+                    </span>
+                </li>
             </ul>
         </div>
     </nav>
@@ -359,6 +393,53 @@
             <polyline points="18 15 12 9 6 15"></polyline>
         </svg>
     </button>
+
+    <!-- Authentication Modals -->
+    <!-- Sign In Modal -->
+    <div class="modal" id="signin-modal">
+        <div class="modal-content">
+            <span class="modal-close" id="signin-close">&times;</span>
+            <h2>Sign In</h2>
+            <form id="signin-form">
+                <div class="form-group">
+                    <label for="signin-email">Email</label>
+                    <input type="email" id="signin-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signin-password">Password</label>
+                    <input type="password" id="signin-password" required>
+                </div>
+                <button type="submit" class="btn-submit">Sign In</button>
+                <p class="auth-switch">Don't have an account? <a href="#" id="switch-to-signup">Sign Up</a></p>
+            </form>
+            <div id="signin-message" class="auth-message"></div>
+        </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div class="modal" id="signup-modal">
+        <div class="modal-content">
+            <span class="modal-close" id="signup-close">&times;</span>
+            <h2>Sign Up</h2>
+            <form id="signup-form">
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-confirm-password">Confirm Password</label>
+                    <input type="password" id="signup-confirm-password" required>
+                </div>
+                <button type="submit" class="btn-submit">Sign Up</button>
+                <p class="auth-switch">Already have an account? <a href="#" id="switch-to-signin">Sign In</a></p>
+            </form>
+            <div id="signup-message" class="auth-message"></div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
